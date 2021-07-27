@@ -1,0 +1,77 @@
+
+
+   <!DOCTYPE html>
+   <html lang="en" dir="ltr">
+     <head>
+       <meta charset="utf-8" />
+       <title>Shooting game VR</title>
+       <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+       <script
+         src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+       <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+       <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+       <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+       <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+       <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+     
+       <script src="./shoot.js"></script>
+       <script src="./gameObject.js"></script>
+       <script src="./playerMovement.js"></script>
+   
+   </head>
+   
+       <body>
+           <a-scene id = "scene" inspector-plugin-recast>
+   
+               <a-assets>
+                   <a-asset-item id = "shooter" src="./assets/shooter/gun.gltf">
+                   </a-asset-item>
+
+                   <a-asset-item id = "ogre-enemy" src="./assets/ogre/scene.gltf"></a-asset-item>
+   
+                   <audio id = "shoot" src="./sounds/shoot.mp3"></audio>
+                   <audio id = "footstep" src="./sounds/footStep.mp3"></audio>
+   
+               </a-assets>
+   
+               <a-entity light = "type : ambient; intensity :0.5; color : yellow"></a-entity>
+   
+            
+               <a-entity id = "camera-rig" movement-controls = "speed : 0.2; constrainToNavMesh : true" position = "0 1 2" >
+             <a-entity id="camera" camera position="0 1.6 0" look-controls="pointerLockEnabled: false">
+               <a-entity id="weapon" gltf-model="#shooter" position="0 -4.4 3" rotation="0 180 0" scale="0.35 1 1"  move></a-entity>
+              
+               <a-cursor></a-cursor>
+              </a-entity>
+   
+              </a-entity>
+           <a-entity bullets></a-entity>
+   
+           <a-plane id = "ground" repeat = "5 5" position = "0 1 0" rotation = "-90 0 0" height = "200" width = "200" color = "#fbf2d4" static-body visible = "false"></a-plane>
+           
+   
+           <!--environment-->
+           <a-entity id = "environment" environment = "preset:arches; skyType : gradient; lighting : point"></a-entity>
+   
+           <a-entity class = "ogre" id="enemy" rotation="0 0 0" gltf-model="#ogre-enemy" position = "1 1 4" scale="3 3 3" 
+           animation-mixer static-body animation = "property : position; to : 10 0 -40; dur : 20000; loop : true; dir : alternate;"          
+           ></a-entity>
+
+           <a-entity class = "ogre" id="enemy2" rotation="0 0 0" gltf-model="#ogre-enemy" position = "20 1 -5" scale="3 3 3" 
+           animation-mixer static-body animation = "property : position; to : 10 0 -40; dur : 20000; loop : true; dir : alternate;"          
+           ></a-entity>
+
+           <a-entity class = "ogre" id="enemy3" rotation="0 0 0" gltf-model="#ogre-enemy" position = "-23 1 -1" scale="3 3 3" 
+           animation-mixer static-body animation = "property : position; to : 10 0 -40; dur : 20000; loop : true; dir : alternate;"          
+           ></a-entity>
+   
+           <a-entity id = "sound1" sound = "src : #shoot; poolSize : 2; autoPlay : false; volume : 1; loop : false"></a-entity>
+   
+           <a-entity id = "sound2" sound = "src : #footstep; poolSize : 2; autoPlay : false; volume : 4; loop : false"></a-entity>
+   
+       
+       </a-scene>
+       </body>
+   
+       </html>
+   
